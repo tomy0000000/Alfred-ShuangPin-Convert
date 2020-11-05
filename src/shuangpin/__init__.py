@@ -4,7 +4,7 @@ import json
 import os
 
 MAPPING_NAMES = ["independents", "initials", "vowels"]
-LAYOUT_NAMES = ["bopomofo", "xiaohe"]
+LAYOUT_NAMES = ["zhuyin", "xiaohe", "microsoft"]
 MAPPINGS = {}
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
 for name in MAPPING_NAMES + LAYOUT_NAMES:
@@ -99,5 +99,5 @@ def parse_combination(transcript):
 
 if __name__ == "__main__":
     converted = matching_sequence(input("Pinyin Sequence: "))
-    print(" ".join(convert_layout(converted, "bopomofo")))
+    print(" ".join(convert_layout(converted, "zhuyin")))
     print(" ".join(convert_layout(converted, "xiaohe")))

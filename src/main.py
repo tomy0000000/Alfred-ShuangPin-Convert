@@ -9,10 +9,10 @@ from workflow import Workflow3
 def convert(workflow):
     """Convert input pattern"""
     results = matching_sequence(workflow.args[0])
-    bopomofos = convert_layout(results, "bopomofo")
+    zhuyins = convert_layout(results, "zhuyin")
     xiaohes = convert_layout(results, "xiaohe")
-    for bopomofo, xiaohe in zip(bopomofos, xiaohes):
-        workflow.add_item(title=xiaohe, subtitle=bopomofo)
+    for zhuyin, xiaohe in zip(zhuyins, xiaohes):
+        workflow.add_item(title=xiaohe, subtitle=zhuyin)
     workflow.send_feedback()
 
 
