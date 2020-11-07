@@ -4,7 +4,7 @@ import json
 import os
 
 MAPPING_NAMES = ["independents", "initials", "vowels"]
-LAYOUT_NAMES = ["zhuyin", "xiaohe", "microsoft"]
+LAYOUT_NAMES = ["zhuyin", "xiaohe", "microsoft", "sougou", "plusplus"]
 MAPPINGS = {}
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
 for name in MAPPING_NAMES + LAYOUT_NAMES:
@@ -14,7 +14,7 @@ for name in MAPPING_NAMES + LAYOUT_NAMES:
 
 def convert_layout(words, layout):
     if layout not in LAYOUT_NAMES:
-        raise ValueError(layout)
+        raise ValueError("Invalid layout name: %s" % layout)
     results = []
     for word in words:
         results.append("".join([MAPPINGS[layout][x] for x in word]))
@@ -31,9 +31,9 @@ def matching_sequence(text):
             results.append(matching_word(text[begin:end]))
             begin = end
             end = begin + 6 if begin + 6 <= len(text) else len(text)
-        except ValueError as error:
+        except ValueError:
             if begin + 1 == end:
-                raise error
+                break
             end -= 1
 
     return results

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Script for Default keyword"""
+import os
 import sys
 
 from shuangpin import convert_layout, matching_sequence
@@ -8,9 +9,12 @@ from workflow import Workflow3
 
 def convert(workflow):
     """Convert input pattern"""
-    results = matching_sequence(workflow.args[0])
-    zhuyins = convert_layout(results, "zhuyin")
-    xiaohes = convert_layout(results, "xiaohe")
+    sequence = "".join(workflow.args)
+    results = matching_sequence(sequence)
+    layout_main = os.getenv("MAIN_LAYOUT", "xiaohe")
+    layout_secondary = os.getenv("SECONDARY_LAYOUT", "zhuyin")
+    xiaohes = convert_layout(results, layout_main)
+    zhuyins = convert_layout(results, layout_secondary)
     for zhuyin, xiaohe in zip(zhuyins, xiaohes):
         workflow.add_item(title=xiaohe, subtitle=zhuyin)
     workflow.send_feedback()
