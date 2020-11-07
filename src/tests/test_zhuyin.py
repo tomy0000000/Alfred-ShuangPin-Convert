@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Tests for Zhuyin"""
 from shuangpin import convert_layout, matching_sequence
 
