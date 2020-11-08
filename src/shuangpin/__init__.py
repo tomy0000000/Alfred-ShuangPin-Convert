@@ -3,13 +3,34 @@
 import json
 import os
 
+
+def _byteify(loaded_dict):
+    """A helper function used to normalize imported json in Python 2
+
+    Arguments:
+        loaded_dict {dict} -- dict return by json.load()
+
+    Returns:
+        dict -- Normalized dictionary
+    """
+    if isinstance(loaded_dict, dict):
+        return {
+            _byteify(key): _byteify(value) for key, value in loaded_dict.iteritems()
+        }
+    if isinstance(loaded_dict, list):
+        return [_byteify(element) for element in loaded_dict]
+    if isinstance(loaded_dict, unicode):
+        return loaded_dict.encode("utf-8")
+    return loaded_dict
+
+
 MAPPING_NAMES = ["independents", "initials", "vowels"]
 LAYOUT_NAMES = ["zhuyin", "xiaohe", "microsoft", "sougou", "plusplus"]
 MAPPINGS = {}
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
 for name in MAPPING_NAMES + LAYOUT_NAMES:
     with open(os.path.join(DIRNAME, "mappings", "%s.json" % name)) as f:
-        MAPPINGS[name] = json.load(f)
+        MAPPINGS[name] = _byteify(json.load(f, "utf-8"))
 
 
 def convert_layout(words, layout):

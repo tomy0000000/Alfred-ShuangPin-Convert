@@ -15,12 +15,11 @@ Type the Input query `cv  [pinyin_sequence_space_seperated_ot_not]` in alfred to
 ## Prerequisite
 
 - Any macOS which has built-in Python 2.7
-  - That normally referred to macOS 10.6+, but things will likely change after Catalina (10.15)
 - Alfred 4+ with Powerpack (v3 should also works, but not tested)
 
 ## Installation
 
-- Head over to [Releases](https://github.com/tomy0000000/Coinc/releases), download the latest version
+- Head over to [Releases](releases), download the latest version
 - Double-click on `Shuangpin Convert.alfredworkflow` to install
 - Auto-Update of workflow is enabled by default, but can be toggle by sending query
   - `cv workflow:autoupdate` for enabling Auto-Update
